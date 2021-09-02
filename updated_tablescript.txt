@@ -1,0 +1,118 @@
+drop database userdb;
+create schema `userdb`;
+use `userdb`;
+
+create table buyer(
+buyerid varchar(50) primary key,
+name varchar(100),
+email varchar(25),
+phoneno bigint,
+password varchar(20),
+isprivileged boolean,
+rewardpoints integer,
+isactive boolean);
+insert into buyer values('B101','Sunil','sunil@infosys.com',9009009001,'Sunil@01',true,100,true);
+insert into buyer values('B102','Anju','anju@infosys.com',9009009002,'Anju@01',false,100,true);
+insert into buyer values('B103','Aishwarya','aishwarya@infosys.com',9009009003,'Aishwarya@01',false,100,false);
+insert into buyer values('B104','Arun','arun@infosys.com',9009009001,'arun@01',true,100,false);
+
+select * from buyer;
+
+
+create table seller(
+sellerid integer primary key,
+name varchar(100),
+email varchar(25),
+phoneno bigint,
+password varchar(20),
+isactive boolean);
+insert into seller values(1,'Kiran','kiran@infosys.com',8008008001,'Kiran@01',true);
+insert into seller values(2,'Anil','anil@infosys.com',8008008002,'Anil@01',false);
+insert into seller values(3,'Raj','raj@infosys.com',8008008001,'raj@01',true);
+insert into seller values(4,'Rashmi','rashmi@infosys.com',8008008002,'rashmi@01',false);
+
+select * from seller;
+
+create table wishlist(
+buyerid varchar(50),
+prodid varchar(50),
+primary key (buyerid,prodid)
+);
+insert into wishlist values('B101','P101');
+insert into wishlist values('B102','P102');
+insert into wishlist values('B103','P103');
+insert into wishlist values('B104','P104');
+
+select * from wishlist;
+
+create table cart(
+buyerid varchar(50),
+prodid varchar(50),
+quantity integer,
+primary key (buyerid,prodid)
+);
+insert into cart values('B101','P101',4);
+insert into cart values('B102','P102',6);
+insert into cart values('B103','P103',5);
+insert into cart values('B104','P104',3);
+
+select * from cart;
+
+
+drop database productdb;
+create schema `productdb`;
+use `productdb`;
+
+create table product(
+prodid varchar(50) primary key,
+productname varchar(100),
+price double,
+stock integer,
+description varchar(500),
+image varchar(255),
+sellerid integer,
+category varchar(25),
+subcategory varchar(25),
+productrating integer);
+insert into product values('P101','watch',500.0,20,'ladies watch','C:\Users\hp\Downloads\IMG-20210627-WA0018.jpg',1,'accessories','gadgets',4);
+insert into product values('P102','phone',10000.0,20,'redmi note 9','C:\Users\hp\Downloads\IMG-20210627-WA0018.jpg',2,'accessories','gadgets',3);
+insert into product values('P103','shoe',500.0,20,'ladies watch','C:\Users\hp\Downloads\IMG-20210627-WA0018.jpg',1,'accessories','gadgets',4);
+insert into product values('P104','earphone',10000.0,20,'redmi note 9','C:\Users\hp\Downloads\IMG-20210627-WA0018.jpg',2,'accessories','gadgets',3);
+
+select * from product;
+
+create table subscribedproduct(
+buyerid varchar(50),
+prodid varchar(50),
+quantity integer,
+primary key (buyerid,prodid)
+);
+insert into subscribedproduct values('B101','P101',3);
+
+select * from subscribedproduct;
+
+drop database orderdb;
+create schema `orderdb`;
+use `orderdb`;
+
+create table orders(
+orderid integer primary key AUTO_INCREMENT,
+buyerid varchar(50),
+amount integer,
+orderdate date,
+address varchar(30),
+status varchar(25));
+insert into orders values(100,'B102',1000,'2017-08-12','Banglore','order placed');
+
+select * from orders;
+
+create table productsordered(
+buyerid varchar(50),
+prodid varchar(50),
+sellerid integer,
+quantity integer,
+primary key (buyerid,prodid)
+);
+insert into productsordered values('B101','P101',2,1);
+
+select * from productsordered;
